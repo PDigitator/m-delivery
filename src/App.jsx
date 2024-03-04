@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { lazy } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Layout from "./components/Layout";
+import PageLayout from "./components/PageLayout";
 
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ShopPage = lazy(() => import("./pages/ShopPage"));
+const ShopCartPage = lazy(() => import("./pages/ShopCartPage"));
+const HistoryPage = lazy(() => import("./pages/HistoryPage"));
+const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        {/* <Route path="catalog" element={<ShopPage />} />
+        <Route path="favorites" element={<FavoritesPage />} /> */}
 
-export default App
+        <Route path="shop" element={<PageLayout />}>
+          <Route index element={<ShopPage />} />
+        </Route>
+        <Route path="shop-cart" element={<PageLayout />}>
+          <Route index element={<ShopCartPage />} />
+        </Route>
+        <Route path="history" element={<PageLayout />}>
+          <Route index element={<HistoryPage />} />
+        </Route>
+        <Route path="favorites" element={<PageLayout />}>
+          <Route index element={<FavoritesPage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
+  );
+};
+
+export default App;
