@@ -1,8 +1,8 @@
 import Section from "../components/Section";
-// import CatalogContent from '../components/CatalogContent';
+// import ShopContent from '../components/ShopContent';
 
 const ShopPage = () => {
-  return <Section title="Shop">{/* <CatalogContent /> */}</Section>;
+  return <Section title="Shop">{/* <ShopContent /> */}</Section>;
 };
 
 export default ShopPage;
